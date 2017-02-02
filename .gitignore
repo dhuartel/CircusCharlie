@@ -27,6 +27,14 @@
 *.out
 *.app
 
+#Debug and release folders
+Debug/
+Release/
+
+#Problematic files
+*.sdf
+*.opensdf
+
 # =========================
 # Operating System Files
 # =========================
@@ -77,3 +85,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+#Photoshop files
+*.psd
+
+#Zip folders
+*.zip
+*.rar
