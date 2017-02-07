@@ -13,7 +13,7 @@ ModuleWindow::~ModuleWindow(){
 
 bool ModuleWindow::Init(){
 	LOG("Init window");
-	bool ret = false;
+	bool ret = true;
 	if (SDL_Init(SDL_INIT_VIDEO) == 0){
 		//Create window
 		Uint32 flags = SDL_WINDOW_SHOWN;
@@ -37,7 +37,7 @@ bool ModuleWindow::Init(){
 		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	return false;
+	return ret;
 }
 
 bool ModuleWindow::CleanUp(){

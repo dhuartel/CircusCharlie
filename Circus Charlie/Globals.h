@@ -48,8 +48,8 @@ enum update_status
 
 // Configuration -----------
 #define TRANSPARENTALPHA 100
-#define SCREEN_WIDTH 512
-#define SCREEN_HEIGHT 471
+#define SCREEN_WIDTH 636
+#define SCREEN_HEIGHT 477
 #define SCREEN_SIZE 1
 #define FULLSCREEN false
 #define VSYNC true

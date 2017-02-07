@@ -34,7 +34,7 @@ bool ModuleTextures::CleanUp(){
 	bool ret = true;
 	LOG("Freeing textures and image library");
 
-	for (list<SDL_Texture*>::iterator it = textures.begin; it != textures.end; ++it){
+	for (list<SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it){
 		SDL_DestroyTexture(*it);
 	}
 
@@ -67,7 +67,7 @@ SDL_Texture* const ModuleTextures::Load(const char* path){
 }
 
 void ModuleTextures::Unload(SDL_Texture* texture){
-	for (list<SDL_Texture*>::iterator it = textures.begin; it != textures.end; ++it){
+	for (list<SDL_Texture*>::iterator it = textures.begin(); it != textures.end(); ++it){
 		if (*it == texture){
 			SDL_DestroyTexture(*it);
 			textures.erase(it);

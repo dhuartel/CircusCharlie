@@ -7,7 +7,8 @@ class Module;
 
 class ModuleRender;
 class ModuleWindow;
-class ModuleTextures; 
+class ModuleTextures;
+class ModuleLevels;
 
 class Application{
 public:
@@ -21,6 +22,7 @@ public:
 	ModuleWindow* window;
 	ModuleTextures* textures;
 	ModuleRender* renderer;
+	ModuleLevels* levels;
 
 	bool debugMode = false;
 
