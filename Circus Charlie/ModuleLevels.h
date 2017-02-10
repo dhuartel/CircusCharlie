@@ -10,15 +10,16 @@ public:
 	~ModuleLevels();
 
 	bool Start();
+	update_status PreUpdate();//For moving background
 	update_status Update();
 	update_status PostUpdate();//For lives and point hud
 	bool CleanUp();
 
 private:
-	SDL_Texture* lowerBackgroundGraphics = nullptr;//I don't add this to a graphics class apart yet, will be decided later
-	SDL_Texture* upperBackgroundGraphics = nullptr;//I don't add this to a graphics class apart yet, will be decided later
-	SDL_Texture* hudGraphics = nullptr;//I don't add this to a graphics class apart yet, will be decided later
+	int elephantPos = 0;
+	SDL_Texture* backgroundGraphics = nullptr;//I don't add this to a graphics class apart yet, will be decided later
 	SDL_Rect lowerBackground;
-	SDL_Rect upperBackground;
+	SDL_Rect elephantUpperBackground;
+	Animation upperBackground;
 	SDL_Rect hud;
 };

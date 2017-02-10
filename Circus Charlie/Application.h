@@ -9,6 +9,7 @@ class ModuleRender;
 class ModuleWindow;
 class ModuleTextures;
 class ModuleLevels;
+class ModuleInput;
 
 class Application{
 public:
@@ -23,6 +24,7 @@ public:
 	ModuleTextures* textures;
 	ModuleRender* renderer;
 	ModuleLevels* levels;
+	ModuleInput* input;
 
 	bool debugMode = false;
 

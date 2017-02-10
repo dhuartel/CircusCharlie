@@ -3,11 +3,13 @@
 #include "ModuleWindow.h"
 #include "ModuleTextures.h"
 #include "ModuleLevels.h"
+#include "ModuleInput.h"
 
 using namespace std;
 
 Application::Application(){
 	//Order matters, as it determines init, update and cleanup orders
+	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(levels = new ModuleLevels());
