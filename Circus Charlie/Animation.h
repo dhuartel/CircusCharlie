@@ -38,4 +38,8 @@ public:
 	SDL_Rect& GetFrame(int frame){
 		return frames[frame];
 	}
+
+	void SetFrame(int frame){
+		current_frame = frame;
+	}
 };

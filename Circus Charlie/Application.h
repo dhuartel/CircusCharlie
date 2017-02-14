@@ -10,6 +10,7 @@ class ModuleWindow;
 class ModuleTextures;
 class ModuleLevels;
 class ModuleInput;
+class Graphics;
 
 class Application{
 public:
@@ -25,6 +26,8 @@ public:
 	ModuleRender* renderer;
 	ModuleLevels* levels;
 	ModuleInput* input;
+
+	Graphics* graphics;
 
 	bool debugMode = false;
 

@@ -3,6 +3,8 @@
 #include "ModuleRender.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
+#include "Graphics.h"
+#include <time.h>
 
 ModuleLevels::ModuleLevels(bool start_enabled) : Module(start_enabled){
 	lowerBackground.x = 0;
@@ -16,16 +18,18 @@ ModuleLevels::ModuleLevels(bool start_enabled) : Module(start_enabled){
 	elephantUpperBackground.w = 84;
 	elephantUpperBackground.h = 120;
 
-	upperBackground.frames.push_back({ 84, 198, 552, 120 });
 	upperBackground.frames.push_back({ 84, 78, 552, 120 });
+	upperBackground.frames.push_back({ 84, 198, 552, 120 });
 	upperBackground.speed = 0.01f;
+	upperBackground.loop = false;
+	upperBackground.SetFrame(2);
 
 	hud.x = 0;
 	hud.y = 0;
 	hud.w = 636;
 	hud.h = 78;
 
-	//636x477 597
+	//636x477 597 289 188
 }
 
 ModuleLevels::~ModuleLevels(){}
@@ -33,6 +37,8 @@ ModuleLevels::~ModuleLevels(){}
 //Load textures, set camera and enable other modules 
 bool ModuleLevels::Start(){
 	backgroundGraphics = App->textures->Load("background/backgroundFile.png");
+	srand(time(NULL));
+	currentDistance = baseDistanceSmall + (rand() % distanceVariation);
 
 	return true;
 }
@@ -48,6 +54,10 @@ bool ModuleLevels::CleanUp(){
 
 //PreUpdate: move background
 update_status ModuleLevels::PreUpdate(){
+	if (App->input->GetKey(SDL_SCANCODE_F)){
+		upperBackground.loop = true;
+	}
+
 	if (App->input->GetKey(SDL_SCANCODE_LEFT)){
 		if (--elephantPos < 0 - elephantUpperBackground.w){
 			elephantPos = SCREEN_WIDTH - elephantUpperBackground.w;
@@ -56,6 +66,17 @@ update_status ModuleLevels::PreUpdate(){
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT)){
 		if (++elephantPos > SCREEN_WIDTH){
 			elephantPos = 0;
+		}
+	}
+	if ((ringOfFirePos -= 0.95f) <= 0){
+		ringOfFirePos += currentDistance;
+		if (bigDistanceBool){
+			bigDistanceBool = false;
+			currentDistance = baseDistanceBig + (rand() % distanceVariation);
+		}
+		else{
+			bigDistanceBool = true;
+			currentDistance = baseDistanceSmall + (rand() % distanceVariation);
 		}
 	}
 	return UPDATE_CONTINUE;
@@ -78,6 +99,9 @@ update_status ModuleLevels::Update(){
 		App->renderer->Blit(backgroundGraphics, elephantPos + elephantUpperBackground.w, 78, &upperBackground.GetCurrentFrame());
 		App->renderer->Blit(backgroundGraphics, elephantPos + elephantUpperBackground.w-SCREEN_WIDTH, 78, &upperBackground.GetCurrentFrame());
 	}
+
+	App->renderer->Blit(App->graphics->sprites, ringOfFirePos, 188, &App->graphics->bigRingOfFire.GetCurrentFrame());
+	App->renderer->Blit(App->graphics->sprites, ringOfFirePos+currentDistance, 188, &App->graphics->bigRingOfFire.GetCurrentFrame());
 
 	return UPDATE_CONTINUE;
 }
