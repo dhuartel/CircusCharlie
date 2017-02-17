@@ -25,6 +25,7 @@ private:
 	float ringOfFirePos = 636;
 	int ringCountToSmall = 6;
 	bool bigDistanceBool = true;
+	int meterCounterPos = 22;
 
 	int elephantPos = 201;
 	SDL_Texture* backgroundGraphics = nullptr;//I don't add this to a graphics class apart yet, will be decided later

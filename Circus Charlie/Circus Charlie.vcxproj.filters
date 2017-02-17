@@ -51,6 +51,9 @@
     <ClCompile Include="Graphics.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ModulePlayer.cpp">
+      <Filter>Source Files\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -84,6 +87,9 @@
       <Filter>Source Files\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
+      <Filter>Source Files\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePlayer.h">
       <Filter>Source Files\Modules</Filter>
     </ClInclude>
   </ItemGroup>

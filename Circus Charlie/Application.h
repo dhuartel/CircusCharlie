@@ -10,6 +10,7 @@ class ModuleWindow;
 class ModuleTextures;
 class ModuleLevels;
 class ModuleInput;
+class ModulePlayer;
 class Graphics;
 
 class Application{
@@ -26,6 +27,7 @@ public:
 	ModuleRender* renderer;
 	ModuleLevels* levels;
 	ModuleInput* input;
+	ModulePlayer* player;
 
 	Graphics* graphics;
 

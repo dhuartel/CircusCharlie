@@ -2,9 +2,10 @@
 
 template <class type_a>
 class Point{
-	
+public:	
 	type_a x, y;
 
+	Point(){}
 	Point(type_a x, type_a y) : x(x), y(y){};
 
 	//Operators

@@ -58,14 +58,20 @@ update_status ModuleLevels::PreUpdate(){
 		upperBackground.loop = true;
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT)){
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT)){
 		if (--elephantPos < 0 - elephantUpperBackground.w){
 			elephantPos = SCREEN_WIDTH - elephantUpperBackground.w;
 		}
+		if (--meterCounterPos<-112){
+			meterCounterPos += 461;
+		}
 	}
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT)){
+	if (App->input->GetKey(SDL_SCANCODE_LEFT)){
 		if (++elephantPos > SCREEN_WIDTH){
 			elephantPos = 0;
+		}
+		if (++meterCounterPos<-112){
+			meterCounterPos += 461;
 		}
 	}
 	if ((ringOfFirePos -= 0.95f) <= 0){
@@ -79,6 +85,9 @@ update_status ModuleLevels::PreUpdate(){
 			currentDistance = baseDistanceSmall + (rand() % distanceVariation);
 		}
 	}
+	/*if (--meterCounterPos<-112){
+		meterCounterPos += 461;
+	}*/
 	return UPDATE_CONTINUE;
 }
 
@@ -101,7 +110,9 @@ update_status ModuleLevels::Update(){
 	}
 
 	App->renderer->Blit(App->graphics->sprites, ringOfFirePos, 188, &App->graphics->bigRingOfFire.GetCurrentFrame());
-	App->renderer->Blit(App->graphics->sprites, ringOfFirePos+currentDistance, 188, &App->graphics->bigRingOfFire.GetCurrentFrame());
+	App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance, 188, &App->graphics->bigRingOfFire.GetCurrentFrame());
+	App->renderer->Blit(App->graphics->misc, meterCounterPos, 430, &App->graphics->meterCounter);
+	//App->renderer->Blit(App->graphics->misc, meterCounterPos + 663, 188, &App->graphics->meterCounter);
 
 	return UPDATE_CONTINUE;
 }
