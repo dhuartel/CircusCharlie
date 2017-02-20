@@ -8,6 +8,7 @@ enum playerStatus{
 	PLAYERMOVINGONWARDS,
 	PLAYERMOVINGBACKWARDS,
 	PLAYERJUMPING,
+	PLAYERDEAD,
 	PLAYERVICTORY
 };
 
@@ -25,7 +26,9 @@ private:
 	//bool victory;
 
 	fPoint position;
-	float movementSpeed=1;
+	float movementSpeed=2;
+	float jumpSpeed = 6;
+	float jumpAceleration=-12.0f/119.0f;
 
-	int jumpCommited = 0;
+	float jumpCommited = 0;
 };

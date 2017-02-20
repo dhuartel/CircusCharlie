@@ -11,12 +11,15 @@ public:
 public:
 	SDL_Texture* sprites;
 	SDL_Texture* misc;
-	Animation bigRingOfFire;
-	Animation smallRingOfFire;
+	Animation bigRingOfFireBack;
+	Animation bigRingOfFireFront;
+	Animation smallRingOfFireBack;
+	Animation smallRingOfFireFront;
 	SDL_Rect meterCounter;
 	Animation movingLionBackwards;
 	Animation movingLionOnwards;
 	Animation movingPlayerOnLion;
 	SDL_Rect deadLion;
 	SDL_Rect deadPlayerOnLion;
+	Animation numbers;
 };

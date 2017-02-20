@@ -15,6 +15,8 @@ public:
 	update_status PostUpdate();//For lives and point hud
 	bool CleanUp();
 
+	void MovingPlayer(bool onwards, float speed);
+
 private:
 	bool victory = false;
 
@@ -23,9 +25,12 @@ private:
 	int distanceVariation = 90;
 	int currentDistance;
 	float ringOfFirePos = 636;
-	int ringCountToSmall = 6;
+	int ringCountToSmall = 5;
 	bool bigDistanceBool = true;
 	int meterCounterPos = 22;
+	int metersLeft = 10;//multiplied by 10
+
+	float ringOfFireSpeed = 0.8f;
 
 	int elephantPos = 201;
 	SDL_Texture* backgroundGraphics = nullptr;//I don't add this to a graphics class apart yet, will be decided later
@@ -33,4 +38,6 @@ private:
 	SDL_Rect elephantUpperBackground;
 	Animation upperBackground;
 	SDL_Rect hud;
+
+	void MeterDrawer();
 };

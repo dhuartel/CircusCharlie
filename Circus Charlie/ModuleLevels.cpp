@@ -54,40 +54,34 @@ bool ModuleLevels::CleanUp(){
 
 //PreUpdate: move background
 update_status ModuleLevels::PreUpdate(){
+	//Debug---------------------------------------
 	if (App->input->GetKey(SDL_SCANCODE_F)){
 		upperBackground.loop = true;
 	}
+	//---------------------------------------------
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT)){
-		if (--elephantPos < 0 - elephantUpperBackground.w){
-			elephantPos = SCREEN_WIDTH - elephantUpperBackground.w;
-		}
-		if (--meterCounterPos<-112){
-			meterCounterPos += 461;
-		}
-	}
-	if (App->input->GetKey(SDL_SCANCODE_LEFT)){
-		if (++elephantPos > SCREEN_WIDTH){
-			elephantPos = 0;
-		}
-		if (++meterCounterPos<-112){
-			meterCounterPos += 461;
-		}
-	}
-	if ((ringOfFirePos -= 0.95f) <= 0){
+	//The ring always moves, the rest depend on the player movement
+	ringOfFirePos -= ringOfFireSpeed; 
+	if (ringOfFirePos <= 0){
 		ringOfFirePos += currentDistance;
-		if (bigDistanceBool){
-			bigDistanceBool = false;
-			currentDistance = baseDistanceBig + (rand() % distanceVariation);
+		--ringCountToSmall;
+		if (ringCountToSmall == 1 || ringCountToSmall == 0){
+			currentDistance = 408;
 		}
 		else{
-			bigDistanceBool = true;
-			currentDistance = baseDistanceSmall + (rand() % distanceVariation);
+			if (ringCountToSmall < 0){
+				ringCountToSmall += 16;
+			}
+			if (bigDistanceBool){
+				bigDistanceBool = false;
+				currentDistance = baseDistanceBig + (rand() % distanceVariation);
+			}
+			else{
+				bigDistanceBool = true;
+				currentDistance = baseDistanceSmall + (rand() % distanceVariation);
+			}
 		}
 	}
-	/*if (--meterCounterPos<-112){
-		meterCounterPos += 461;
-	}*/
 	return UPDATE_CONTINUE;
 }
 
@@ -109,17 +103,127 @@ update_status ModuleLevels::Update(){
 		App->renderer->Blit(backgroundGraphics, elephantPos + elephantUpperBackground.w-SCREEN_WIDTH, 78, &upperBackground.GetCurrentFrame());
 	}
 
-	App->renderer->Blit(App->graphics->sprites, ringOfFirePos, 188, &App->graphics->bigRingOfFire.GetCurrentFrame());
-	App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance, 188, &App->graphics->bigRingOfFire.GetCurrentFrame());
-	App->renderer->Blit(App->graphics->misc, meterCounterPos, 430, &App->graphics->meterCounter);
-	//App->renderer->Blit(App->graphics->misc, meterCounterPos + 663, 188, &App->graphics->meterCounter);
+	if (ringCountToSmall == 1){
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos, 188, &App->graphics->bigRingOfFireBack.GetCurrentFrame());
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance, 188, &App->graphics->smallRingOfFireBack.GetCurrentFrame());
+	}
+	else if (ringCountToSmall == 0){
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos, 188, &App->graphics->smallRingOfFireBack.GetCurrentFrame());
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance, 188, &App->graphics->bigRingOfFireBack.GetCurrentFrame());
+	}
+	else{
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos, 188, &App->graphics->bigRingOfFireBack.GetCurrentFrame());
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance, 188, &App->graphics->bigRingOfFireBack.GetCurrentFrame());
+	}
+
+	MeterDrawer();
+	
 
 	return UPDATE_CONTINUE;
 }
 
-// Postupdate: draw hud
+// Postupdate: draw hud and front part of fire rings
 update_status ModuleLevels::PostUpdate(){
 	App->renderer->Blit(backgroundGraphics, 0, 0, &hud);
 
+	//The +26 should be +RingOfFireFront.GetCurrentFrame().w/2
+	if (ringCountToSmall == 1){
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + 26, 188, &App->graphics->bigRingOfFireFront.GetCurrentFrame());
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance + 25, 188, &App->graphics->smallRingOfFireFront.GetCurrentFrame());
+	}
+	else if (ringCountToSmall == 0){
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + 25 , 188, &App->graphics->smallRingOfFireFront.GetCurrentFrame());
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance + 26, 188, &App->graphics->bigRingOfFireFront.GetCurrentFrame());
+	}
+	else{
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + 26, 188, &App->graphics->bigRingOfFireFront.GetCurrentFrame());
+		App->renderer->Blit(App->graphics->sprites, ringOfFirePos + currentDistance + 26, 188, &App->graphics->bigRingOfFireFront.GetCurrentFrame());
+	}
+
 	return UPDATE_CONTINUE;
+}
+
+void ModuleLevels::MovingPlayer(bool onwards, float speed){
+	if (onwards){
+		elephantPos -= speed;
+		if (elephantPos < 0 - elephantUpperBackground.w){
+			elephantPos = SCREEN_WIDTH - elephantUpperBackground.w;
+		}
+		meterCounterPos -= speed;
+		if (meterCounterPos<-112){
+			metersLeft -= 1;
+			meterCounterPos += 663;
+		}
+		ringOfFirePos -= speed;
+		if (ringOfFirePos <= 0){
+			ringOfFirePos += currentDistance;
+			--ringCountToSmall;
+
+			if (ringCountToSmall == 1 || ringCountToSmall == 0){
+				currentDistance = 408;
+			}
+			else{
+				if (ringCountToSmall < 0){
+					ringCountToSmall += 16;
+				}
+				if (bigDistanceBool){
+					bigDistanceBool = false;
+					currentDistance = baseDistanceBig + (rand() % distanceVariation);
+				}
+				else{
+					bigDistanceBool = true;
+					currentDistance = baseDistanceSmall + (rand() % distanceVariation);
+				}
+			}
+		}
+	}
+	else{
+		elephantPos += speed;
+		if (elephantPos > SCREEN_WIDTH){
+			elephantPos = 0;
+		}
+		meterCounterPos += speed;
+		if (meterCounterPos>SCREEN_WIDTH){
+			meterCounterPos -= 663;
+			metersLeft += 1;
+		}
+
+		ringOfFirePos += speed;
+	}
+}
+
+void ModuleLevels::MeterDrawer(){
+	App->renderer->Blit(App->graphics->misc, meterCounterPos, 430, &App->graphics->meterCounter);
+	App->renderer->Blit(App->graphics->misc, meterCounterPos + 663, 430, &App->graphics->meterCounter);
+	App->renderer->Blit(App->graphics->misc, meterCounterPos - 663, 430, &App->graphics->meterCounter);
+	App->renderer->Blit(App->graphics->misc, meterCounterPos + 58, 430 + 13, &App->graphics->numbers.GetFrame(0));
+	App->renderer->Blit(App->graphics->misc, meterCounterPos + 663 + 58, 430 + 13, &App->graphics->numbers.GetFrame(0));
+	App->renderer->Blit(App->graphics->misc, meterCounterPos - 663 + 58, 430 + 13, &App->graphics->numbers.GetFrame(0));
+	if (metersLeft > 9){
+		App->renderer->Blit(App->graphics->misc, meterCounterPos + 16, 430 + 13, &App->graphics->numbers.GetFrame(metersLeft / 10));
+		App->renderer->Blit(App->graphics->misc, meterCounterPos + 37, 430 + 13, &App->graphics->numbers.GetFrame(metersLeft % 10));
+	}
+	else{
+		App->renderer->Blit(App->graphics->misc, meterCounterPos + 37, 430 + 13, &App->graphics->numbers.GetFrame(metersLeft));
+	}
+
+	int aux = metersLeft + 1;
+	if (aux > 9){
+		App->renderer->Blit(App->graphics->misc, meterCounterPos - 663 + 16, 430 + 13, &App->graphics->numbers.GetFrame(aux / 10));
+		App->renderer->Blit(App->graphics->misc, meterCounterPos - 663 + 37, 430 + 13, &App->graphics->numbers.GetFrame(aux % 10));
+	}
+	else{
+		App->renderer->Blit(App->graphics->misc, meterCounterPos - 663 + 37, 430 + 13, &App->graphics->numbers.GetFrame(aux));
+	}
+
+	aux = metersLeft - 1;
+	LOG("meters left -1 %d", aux);
+	if (aux > 9){
+		App->renderer->Blit(App->graphics->misc, meterCounterPos + 663 + 16, 430 + 13, &App->graphics->numbers.GetFrame(aux / 10));
+		App->renderer->Blit(App->graphics->misc, meterCounterPos + 663 + 37, 430 + 13, &App->graphics->numbers.GetFrame(aux % 10));
+	}
+	else{
+		LOG("%d", aux);
+		App->renderer->Blit(App->graphics->misc, meterCounterPos + 663 + 37, 430 + 13, &App->graphics->numbers.GetFrame(aux));
+	}
 }
