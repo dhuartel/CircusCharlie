@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "Globals.h"
 #include "ModuleLevels.h"
+#include "AudioEffects.h"
 #include "SDL\include\SDL.h"
 
 
@@ -38,6 +39,7 @@ update_status ModulePlayer::PreUpdate(){
 		}
 		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN){
 			status = PLAYERJUMPING;
+			App->audioEffects->PlayFX(JUMP);
 			jumpCommited = 0;
 		}
 		break;
@@ -54,6 +56,7 @@ update_status ModulePlayer::PreUpdate(){
 		}
 		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN){
 			status = PLAYERJUMPING;
+			App->audioEffects->PlayFX(JUMP);
 			jumpCommited = 0;
 		}
 		break;
@@ -70,6 +73,7 @@ update_status ModulePlayer::PreUpdate(){
 		}
 		if (App->input->GetKey(SDL_SCANCODE_J) == KEY_DOWN || App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN){
 			status = PLAYERJUMPING;
+			App->audioEffects->PlayFX(JUMP);
 			jumpCommited = 0;
 		}
 		break;
@@ -81,7 +85,9 @@ update_status ModulePlayer::PreUpdate(){
 			App->levels->MovingPlayer(true, movementSpeed);
 		}
 		if (jumpCommited < 119){
-			LOG("Menos de mitad jumpSpeed: %f, acceleration: %f,\n positionY: %f,jumpCommited: %f", jumpSpeed, jumpAceleration,position.y,jumpCommited);
+			//LOG("Menos de mitad jumpSpeed: %f, acceleration: %f,\n positionY: %f,jumpCommited: %f", jumpSpeed, jumpAceleration,position.y,jumpCommited);
+
+
 			jumpCommited+=jumpSpeed;
 			position.y -= jumpSpeed;
 			jumpSpeed += jumpAceleration;
@@ -89,7 +95,9 @@ update_status ModulePlayer::PreUpdate(){
 				jumpSpeed = 0;
 		}
 		else if (jumpCommited < 238){
-			LOG("Mas de mitad jumpSpeed: %f, acceleration: %f,\n positionY: %f,jumpCommited: %f", jumpSpeed, jumpAceleration, position.y, jumpCommited);
+			///LOG("Mas de mitad jumpSpeed: %f, acceleration: %f,\n positionY: %f,jumpCommited: %f", jumpSpeed, jumpAceleration, position.y, jumpCommited);
+
+
 			jumpCommited -= jumpSpeed;
 			position.y -= jumpSpeed;
 			jumpSpeed += jumpAceleration;

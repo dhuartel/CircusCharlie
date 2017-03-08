@@ -11,7 +11,9 @@ class ModuleTextures;
 class ModuleLevels;
 class ModuleInput;
 class ModulePlayer;
+class ModuleAudio;
 class Graphics;
+class AudioEffects;
 
 class Application{
 public:
@@ -28,8 +30,10 @@ public:
 	ModuleLevels* levels;
 	ModuleInput* input;
 	ModulePlayer* player;
+	ModuleAudio* audio;
 
 	Graphics* graphics;
+	AudioEffects* audioEffects;
 
 	bool debugMode = false;
 

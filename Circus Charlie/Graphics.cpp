@@ -58,10 +58,14 @@ Graphics::Graphics(){
 	numbers.frames.push_back({ 149, 30, 18, 15 });//8
 	numbers.frames.push_back({ 113, 45, 18, 15 });//9
 	numbers.speed = 0.01f;
+
+	fireJar.frames.push_back({ 470, 411, 51, 67 });
+	fireJar.frames.push_back({ 415, 417, 51, 61 });
+	fireJar.speed = 0.01f;
 }
 
 void Graphics::LoadGraphics(){
-	sprites = App->textures->Load("sprites/spriteRes.png");
+	sprites = App->textures->Load("sprites/spriteRes2.png");
 	misc = App->textures->Load("sprites/misc.png");
 }
 

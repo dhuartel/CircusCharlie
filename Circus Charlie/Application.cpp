@@ -5,7 +5,9 @@
 #include "ModuleLevels.h"
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
+#include "ModuleAudio.h"
 #include "Graphics.h"
+#include "AudioEffects.h"
 
 using namespace std;
 
@@ -13,11 +15,15 @@ Application::Application(){
 	//Order matters, as it determines init, update and cleanup orders
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
+
 	modules.push_back(textures = new ModuleTextures());
+	modules.push_back(audio = new ModuleAudio());
+
 	modules.push_back(levels = new ModuleLevels());
 	modules.push_back(player = new ModulePlayer());
 	modules.push_back(renderer = new ModuleRender());
 	graphics = new Graphics();
+	audioEffects = new AudioEffects();
 }
 
 Application::~Application(){
@@ -38,6 +44,7 @@ bool Application::Init(){
 	}
 
 	graphics->LoadGraphics();
+	audioEffects->LoadFxs();
 	return ret;
 }
 

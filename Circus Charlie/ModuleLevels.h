@@ -29,6 +29,7 @@ private:
 	bool bigDistanceBool = true;
 	int meterCounterPos = 22;
 	int metersLeft = 10;//multiplied by 10
+	int fireJarDistance = 26;
 
 	float ringOfFireSpeed = 0.8f;
 
@@ -40,4 +41,5 @@ private:
 	SDL_Rect hud;
 
 	void MeterDrawer();
+	void FireJarDrawer();
 };

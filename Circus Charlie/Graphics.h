@@ -22,4 +22,5 @@ public:
 	SDL_Rect deadLion;
 	SDL_Rect deadPlayerOnLion;
 	Animation numbers;
+	Animation fireJar;
 };
