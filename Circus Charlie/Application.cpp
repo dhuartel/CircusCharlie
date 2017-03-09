@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
+#include "ModuleCollision.h"
 #include "Graphics.h"
 #include "AudioEffects.h"
 
@@ -21,6 +22,7 @@ Application::Application(){
 
 	modules.push_back(levels = new ModuleLevels());
 	modules.push_back(player = new ModulePlayer());
+	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(renderer = new ModuleRender());
 	graphics = new Graphics();
 	audioEffects = new AudioEffects();
@@ -49,6 +51,10 @@ bool Application::Init(){
 }
 
 update_status Application::Update(){
+	if (input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN){
+		debugMode = !debugMode;
+		LOG("Activating debug mode");
+	}
 	update_status ret = UPDATE_CONTINUE;
 
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)

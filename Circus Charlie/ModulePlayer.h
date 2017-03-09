@@ -23,8 +23,11 @@ public:
 
 private:
 	playerStatus status;
+
+	Collider* myCollider;
 	//bool victory;
 
+	float startHeight;
 	fPoint position;
 	float movementSpeed=2;
 	float jumpSpeed = 6;

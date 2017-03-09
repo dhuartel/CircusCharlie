@@ -79,10 +79,12 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AudioEffects.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
+    <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleLevels.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
@@ -94,10 +96,12 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="AudioEffects.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleAudio.h" />
+    <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleInput.h" />
     <ClInclude Include="ModuleLevels.h" />
     <ClInclude Include="ModulePlayer.h" />

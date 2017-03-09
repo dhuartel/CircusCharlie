@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "ModuleLevels.h"
 #include "AudioEffects.h"
+#include "ModuleCollision.h"
 #include "SDL\include\SDL.h"
 
 
@@ -18,10 +19,17 @@ ModulePlayer::~ModulePlayer(){
 
 bool ModulePlayer::Start(){
 	status = PLAYERSTANDING;
+	startHeight = 390;
 	position.x = 100;
-	position.y = 390;
-	//Create Collider
+	position.y = startHeight;
 
+	//Create Collider
+	SDL_Rect aux;
+	aux.x = 0;
+	aux.y = 0;
+	aux.w = 0;
+	aux.h = 0;
+	myCollider = App->collision->CreateCollider(aux, this, PLAYER);
 	return true;
 }
 
@@ -105,6 +113,7 @@ update_status ModulePlayer::PreUpdate(){
 		else{
 			jumpSpeed = 6.0f;
 			jumpCommited = 0;
+			position.y = startHeight;
 			status = PLAYERSTANDING;
 		}
 		break;
@@ -124,6 +133,7 @@ update_status ModulePlayer::Update(){
 	case PLAYERSTANDING:
 		App->renderer->Blit(App->graphics->sprites, position.x, position.y, &App->graphics->movingLionBackwards.GetFrame(0));
 		App->renderer->Blit(App->graphics->sprites, position.x + 19, position.y - 50, &App->graphics->movingPlayerOnLion.GetFrame(0));
+
 		break;
 	case PLAYERMOVINGONWARDS:
 		App->renderer->Blit(App->graphics->sprites, position.x, position.y, &App->graphics->movingLionOnwards.GetCurrentFrame());
@@ -142,5 +152,9 @@ update_status ModulePlayer::Update(){
 		App->renderer->Blit(App->graphics->sprites, position.x + 17, position.y - 51, &App->graphics->deadPlayerOnLion);
 		break;
 	}
+	myCollider->collisionBox.x = position.x;
+	myCollider->collisionBox.y = position.y;
+	myCollider->collisionBox.w = App->graphics->deadLion.w;
+	myCollider->collisionBox.h = App->graphics->deadLion.h;
 	return UPDATE_CONTINUE;
 }

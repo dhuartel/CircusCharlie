@@ -60,6 +60,12 @@
     <ClCompile Include="AudioEffects.cpp">
       <Filter>Source Files\Utils</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleCollision.cpp">
+      <Filter>Source Files\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Globals.h">
@@ -102,6 +108,12 @@
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
     <ClInclude Include="AudioEffects.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleCollision.h">
+      <Filter>Source Files\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>

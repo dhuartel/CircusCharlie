@@ -12,6 +12,7 @@ class ModuleLevels;
 class ModuleInput;
 class ModulePlayer;
 class ModuleAudio;
+class ModuleCollision;
 class Graphics;
 class AudioEffects;
 
@@ -31,6 +32,7 @@ public:
 	ModuleInput* input;
 	ModulePlayer* player;
 	ModuleAudio* audio;
+	ModuleCollision* collision;
 
 	Graphics* graphics;
 	AudioEffects* audioEffects;

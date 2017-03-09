@@ -31,6 +31,10 @@
 Debug/
 Release/
 
+#Not needed files
+*.mp3
+*.gif
+
 #Problematic files
 *.sdf
 *.opensdf
