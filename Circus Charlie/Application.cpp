@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleAudio.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemy.h"
 #include "Graphics.h"
 #include "AudioEffects.h"
 
@@ -21,6 +22,7 @@ Application::Application(){
 	modules.push_back(audio = new ModuleAudio());
 
 	modules.push_back(levels = new ModuleLevels());
+	modules.push_back(enemy = new ModuleEnemy());
 	modules.push_back(player = new ModulePlayer());
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(renderer = new ModuleRender());

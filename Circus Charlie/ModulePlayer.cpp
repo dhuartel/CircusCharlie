@@ -158,3 +158,16 @@ update_status ModulePlayer::Update(){
 	myCollider->collisionBox.h = App->graphics->deadLion.h;
 	return UPDATE_CONTINUE;
 }
+
+void ModulePlayer::OnCollision(Collider* col1, Collider* col2){
+	if (col1->type == PLAYER){
+		if (col2->type == HARM){
+			status = PLAYERDEAD;
+		}
+	}
+	if (col1->type == HARM){
+		if (col2->type == PLAYER){
+			status = PLAYERDEAD;
+		}
+	}
+}

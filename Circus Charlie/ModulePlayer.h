@@ -21,6 +21,7 @@ public:
 	update_status PreUpdate();
 	update_status Update();
 
+	void OnCollision(Collider*, Collider*);
 private:
 	playerStatus status;
 

@@ -38,6 +38,7 @@ update_status ModuleCollision::Update(){
 		for (it2; it2 != setOfColliders.end(); ++it2){
 			if (DetectCollision((*it)->collisionBox, (*it2)->collisionBox)){
 				if (possibleCollisions[(*it)->type][(*it2)->type]){
+					LOG("Collided");
 					(*it)->mod->OnCollision(*it, *it2);
 					(*it2)->mod->OnCollision(*it, *it2);
 				}

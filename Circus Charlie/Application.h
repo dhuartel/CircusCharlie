@@ -13,6 +13,7 @@ class ModuleInput;
 class ModulePlayer;
 class ModuleAudio;
 class ModuleCollision;
+class ModuleEnemy;
 class Graphics;
 class AudioEffects;
 
@@ -33,6 +34,7 @@ public:
 	ModulePlayer* player;
 	ModuleAudio* audio;
 	ModuleCollision* collision;
+	ModuleEnemy* enemy;
 
 	Graphics* graphics;
 	AudioEffects* audioEffects;
